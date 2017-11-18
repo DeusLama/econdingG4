@@ -7,15 +7,19 @@
 int main(int argc, char ** argv)
 {
   char* pathOfFile = "D:\\Users\\Luis Valdez\\Documents\\ESGI\\Annee 2017 - 2018\\Langage C\\Projet\\seven.txt";
+  char* pathOfKey = "D:\\Users\\Luis Valdez\\Documents\\ESGI\\Annee 2017 - 2018\\Langage C\\Projet\\key.txt";
   char* stringUserBinary;
+  char stringOfKey[36];
   char hexaTemp[3] = "00\0", tempChar, binaryTemp[9] = "00000000\0";
   FILE* userFile = NULL;
   int i, y, tempHexa;
-  int sizeOfFile = 0, currenChar;
+  int sizeOfFile = 0, currentChar, count = 0;
 
 
   userFile = fopen(pathOfFile, "r"); //Ouverture du userFile en mode lecture
 
+
+  /******************************************** lecture et conversion en binaire du fichier ********************************************/
   if(userFile != NULL){
 
     printf("good job (ligne 20)\n");
@@ -31,12 +35,13 @@ int main(int argc, char ** argv)
       printf("phrase à coder (ligne 30) : ");
       fseek (userFile , 0 , SEEK_SET );
       printf("%s\n", stringUserBinary);
-      while(currenChar != EOF){
 
-        currenChar = fgetc(userFile);
-        if(currenChar == EOF) break;
-        printf("%c", currenChar);
-        tempChar = currenChar;
+      while(currentChar != EOF){
+
+        currentChar = fgetc(userFile);
+        if(currentChar == EOF) break;
+        printf("%c", currentChar);
+        tempChar = currentChar;
         for(i = 1; i > -1; i--){
           hexaTemp[i] = (int)tempChar % 16;
           tempChar = (int)tempChar / 16;
@@ -65,6 +70,63 @@ int main(int argc, char ** argv)
         i++;
       }
       printf("\n");
+
+
+      userFile = fopen(pathOfKey, "r");
+
+      if(userFile != NULL){
+
+        /******************************************** vérification de la clé et enregistrement de celle-ci ********************************************/
+        fseek(userFile, 0, SEEK_END);
+        sizeOfFile = ftell (userFile);
+        fseek (userFile , 5 , SEEK_SET );
+        if(sizeOfFile != 43){
+          printf("error1");
+          return 0;
+        }
+
+        currentChar = '\0';
+        while(currentChar != 93 || currentChar == EOF){
+          currentChar = fgetc(userFile);
+          if(currentChar == ']') break;
+          count++;
+          if(currentChar != 48 && currentChar != 49 && currentChar != ' '){
+            printf("%c\n", currentChar);
+            printf("error2\n");
+            return 0;
+          }
+        }
+
+        if(count != 35){
+          printf("error3\n");
+          return 0;
+        }
+        stringOfKey[0] = '\0';
+        fseek (userFile , 5 , SEEK_SET );
+        i = 0;
+        while(currentChar != ']' || currentChar == EOF){
+          currentChar = fgetc(userFile);
+          if(currentChar == ']') break;
+          printf("%c ",currentChar);
+          stringOfKey[i] == currentChar;
+          i++;
+        }
+        stringOfKey[35] = '\0';
+        printf("\nchaine : %s\n", stringOfKey);
+        /******************************************** encodage avec la matrice G4 ********************************************/
+
+          i = 0;
+          /*while(stringUserBinary[i] != '\0'){
+
+          }*/
+
+
+          close(userFile);
+      }
+
+      else return 0;
+
+
       free(stringUserBinary);
     }
     else return 0;
