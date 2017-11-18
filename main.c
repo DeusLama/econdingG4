@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
-
+test
 
 
 int main(int argc, char ** argv)
