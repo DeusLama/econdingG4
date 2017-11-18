@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
-test
 
 
 int main(int argc, char ** argv)
@@ -28,26 +27,23 @@ int main(int argc, char ** argv)
     stringUserBinary = (char*)malloc(sizeof(char)*sizeOfFile*8 + 2);
     stringUserBinary[0] = '\0';
     if(stringUserBinary!= NULL){
-
       printf("all Good (ligne 29)\n");
+      printf("phrase à coder (ligne 30) : ");
       fseek (userFile , 0 , SEEK_SET );
       printf("%s\n", stringUserBinary);
       while(currenChar != EOF){
 
         currenChar = fgetc(userFile);
-        if(currenChar == EOF/*|| currenChar == (char)10*/) break;
+        if(currenChar == EOF) break;
         printf("%c", currenChar);
         tempChar = currenChar;
         for(i = 1; i > -1; i--){
           hexaTemp[i] = (int)tempChar % 16;
-          printf(" : %d", hexaTemp[i]);
           tempChar = (int)tempChar / 16;
           tempHexa = hexaTemp[i];
           for(y = 7; y > -1; y--){
             if(i == 1 && y >=4){
               binaryTemp[y] = (tempHexa % 2) + 48;
-              printf("%d: %d ", y, binaryTemp[y]);
-              printf("(%d)  ", tempHexa);
               tempHexa /= 2;
 
             }
@@ -56,19 +52,24 @@ int main(int argc, char ** argv)
               tempHexa = tempHexa / 2;
             }
           }
-          printf("\n %d : %s\n", i, binaryTemp);
         }
-
+        fclose(userFile);
         strcat(stringUserBinary, binaryTemp);
       }
       //printf("\n%s\n", stringUserBinary);
-
+      i = 0;
+      printf("\n******** conversion binaire ********\n");
+      while(stringUserBinary[i] != '\0'){
+        if(i % 8 == 0 && i != 0) printf(" ");
+        printf("%c", stringUserBinary[i]);
+        i++;
+      }
+      printf("\n");
       free(stringUserBinary);
     }
-
     else return 0;
 
-    fclose(userFile);
+
   }
   else printf("ouverture impossible\n");
 
