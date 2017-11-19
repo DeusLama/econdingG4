@@ -128,7 +128,8 @@ int main(int argc, char ** argv)
 
 
           /******************************************** conversion du binaire encodé en ASCII ********************************************/
-          
+
+
 
         }
         else return 0;
