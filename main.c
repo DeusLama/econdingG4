@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
-
+bonjour test
 int main(int argc, char ** argv)
 {
   char* pathOfFile = "D:\\Users\\Luis Valdez\\Documents\\ESGI\\Annee 2017 - 2018\\Langage C\\Projet\\seven.txt";
