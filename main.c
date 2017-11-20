@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
-bonjour test
+
 int main(int argc, char ** argv)
 {
   char* pathOfFile = "D:\\Users\\Luis Valdez\\Documents\\ESGI\\Annee 2017 - 2018\\Langage C\\Projet\\seven.txt";
@@ -14,6 +14,7 @@ int main(int argc, char ** argv)
   FILE* userFile = NULL;
   int i, y, tempHexa;
   int sizeOfFile = 0, currentChar, count = 0, finalChar;
+
   do{
     printf("/******************************************** CODEC WITH G4 MODIFIED ********************************************/\n");
     printf(" 1 - encoder un fichier\n");
